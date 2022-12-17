@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "name": "Tawnya Turton",
+    "email": "tturton0@squarespace.com",
+    "avatar": "https://robohash.org/atemporaut.png?size=50x50&set=set1",
+    "salary": "25000",
+    "date": "2022-06-08",
+    "status":"Active"
+  },
+  {
+    "id": 2,
+    "name": "Vasilis Caslett",
+    "email": "vcaslett1@ebay.co.uk",
+    "avatar": "https://robohash.org/quibusdamiureimpedit.png?size=50x50&set=set1",
+    "salary": "25800",
+    "date": "2022-05-10",
+    "status": "Active"
+  },
+  {
+    "id": 3,
+    "name": "Jack Scutching",
+    "email": "jscutching2@un.org",
+    "avatar": "https://robohash.org/recusandaequasiest.png?size=50x50&set=set1",
+    "salary": "25000",
+    "date": "2022-06-08",
+    "status": "Inactive"
+  },
+  {
+    "id": 4,
+    "name": "Hodge Shutler",
+    "email": "hshutler3@washingtonpost.com",
+    "avatar": "https://robohash.org/cupiditatesimiliquenumquam.png?size=50x50&set=set1",
+    "salary": "78800",
+    "date": "2022-05-10",
+    "status": "Active"
+  },
+  {
+    "id": 5,
+    "name": "Allie Burgin",
+    "email": "aburgin4@china.com.cn",
+    "avatar": "https://robohash.org/placeattemporibusfugit.png?size=50x50&set=set1",
+    "salary": "28200",
+    "date": "2022-05-22",
+    "status": "Inactive"
+  },
+  {
+    "id": 6,
+    "name": "Rebbecca Dulson",
+    "email": "rdulson5@umn.edu",
+    "avatar": "https://robohash.org/idquamquia.png?size=50x50&set=set1",
+    "salary": "25800",
+    "date": "2022-05-10",
+    "status": "Active"
+  },
+  {
+    "id": 7,
+    "name": "Arda Shoppee",
+    "email": "ashoppee6@plala.or.jp",
+    "avatar": "https://robohash.org/itaquesitsaepe.png?size=50x50&set=set1",
+    "salary": "25800",
+    "date": "2022-05-11",
+    "status": "Inactive"
+  },
+  {
+    "id": 8,
+    "name": "Gay Katt",
+    "email": "gkatt7@ca.gov",
+    "avatar": "https://robohash.org/sitametconsequatur.png?size=50x50&set=set1",
+    "salary": "120800",
+    "date": "2022-05-10",
+    "status": "Active"
+  }
+
+]

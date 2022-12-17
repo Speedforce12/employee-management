@@ -1,8 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import { BiEdit, BiTrash, BiTrashAlt } from "react-icons/bi";
+import data from "../database/data.json"
 
-const Table = () => {
+const Table = ({ id, name, salary, date, email, avatar, status }) => {
+  
   return (
     <table className='min-w-full table-auto'>
       <thead>
@@ -29,38 +31,41 @@ const Table = () => {
       </thead>
 
       <tbody className='bg-gray-200'>
-        <tr className='bg-gray-50 text-center'>
-          <td className='px-16 py-2 flex flex-row items-center relative'>
-            <img src='#' className='object-contain' />
-            <span className='text-center ml-2 font-semibold '>
-              O'vonee Delpesche
-            </span>
-          </td>
-          <td className='px-16 py-2'>
-            <span>ovoneedee@gmail.com</span>
-          </td>
-          <td className='px-16 py-2'>
-            <span>$2568</span>
-          </td>
-          <td className='px-16 py-2'>
-            <span>09/05/1996</span>
-          </td>
-          <td className='px-16 py-2'>
-            <button className='cursor-point'>
-              <span className='bg-green-600 rounded-full px-4 py-1 text-green-300'>
-                Active
-              </span>
-            </button>
-          </td>
-          <td className='px-16 py-2 space-x-4'>
-            <button>
-              <BiEdit size={25} color={"rgb(34,197,94)"} />
-            </button>
-            <button>
-              <BiTrash size={25} color={"rgb(244,63,94)"} />
-            </button>
-          </td>
-        </tr>
+        {data.map((obj, i) => (
+          <tr className='bg-gray-50 text-center' key={i}>
+            <td className='px-16 py-2 flex flex-row items-center relative'>
+              <img
+                src={obj.avatar ? obj.avatar : "#"}
+                className='object-contain'
+              />
+              <span className='text-center ml-2 font-semibold '>{name}</span>
+            </td>
+            <td className='px-16 py-2'>
+              <span>{obj.email}</span>
+            </td>
+            <td className='px-16 py-2'>
+              <span>${obj.salary}</span>
+            </td>
+            <td className='px-16 py-2'>
+              <span>{obj.date}</span>
+            </td>
+            <td className='px-16 py-2'>
+              <button className='cursor-point'>
+                <span className={`rounded-full px-4 py-1 ${obj.status === 'Active' ? "bg-green-600  text-green-300" : "bg-red-500 text-red-300"} `}>
+                  {obj.status ? obj.status : " "}
+                </span>
+              </button>
+            </td>
+            <td className='px-16 py-2 space-x-4'>
+              <button>
+                <BiEdit size={25} color={"rgb(34,197,94)"} />
+              </button>
+              <button>
+                <BiTrash size={25} color={"rgb(244,63,94)"} />
+              </button>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );

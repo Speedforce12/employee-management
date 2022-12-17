@@ -4,6 +4,7 @@ import { BiUserPlus } from "react-icons/bi";
 import Form from "../components/Form";
 import Table from "../components/Table";
 
+
 export default function Home() {
   const [visible, setVisible] = useState(false);
 
