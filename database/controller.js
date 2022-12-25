@@ -17,13 +17,11 @@ export async function getUsers(req, res) {
 // create a new user
 export async function createUser(req, res) {
   try {
-    const data = req.body;
-    if (!data) {
+    if (!req.body) {
       res.status(404).json({ error: "No data provided" });
     }
-    Users.create(data, function (err, data) {
-      res.status(200).json(data);
-    });
+    const user = await Users.create(req.body);
+    res.status(201).json({ success: true, data: user });
   } catch (error) {
     res.status(401).json({ error: "Error While creating user" });
   }
@@ -52,7 +50,7 @@ export async function deleteUser(req, res) {
     const { userId } = req.query;
     if (userId) {
       const user = await Users.findByIdAndDelete(userId);
-      return res.status(200).json({success:"user deleted successfully"});
+      return res.status(200).json({ success: "user deleted successfully" });
     }
 
     res.status(404).json({ error: "No User selected for deleting" });
@@ -64,11 +62,10 @@ export async function deleteUser(req, res) {
 export async function getUser(req, res) {
   try {
     const { userId } = req.query;
-    if (userId) {
-      const user = await Users.findById(userId);
+    const user = await Users.findById(userId);
+    if (user) {
       res.status(200).json(user);
     }
-    res.status(404).json({ error: "User Not selected" });
   } catch (error) {
     res.status(404).json({ error: "Error fetching user data" });
   }

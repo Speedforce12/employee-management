@@ -1,5 +1,5 @@
 import connectMongo from "../../../database/conn";
-import { getUser } from "../../../database/controller";
+import { getUser, updateUser } from "../../../database/controller";
 
 export default function handler(req, res) {
   connectMongo().catch(() =>
@@ -14,10 +14,14 @@ export default function handler(req, res) {
       getUser(req, res);
       break;
 
+    case "PATCH":
+      updateUser(req, res);
+      break;
+
     default:
       res.setHeader(
         "Allow",
-        ["GET"],
+        ["GET", "DELETE", "PATCH"],
         "Content-Type",
         "application/json"
       );

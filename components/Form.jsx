@@ -1,8 +1,10 @@
 import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import {BiPlus} from "react-icons/bi"
+import { BiPlus } from "react-icons/bi";
 import { toast } from "react-toastify";
+import { createUser, getUsers } from "../lib/helper";
+import { useMutation, useQueryClient } from "react-query";
 
 const validationSchema = yup.object({
   name: yup.string().required(),
@@ -15,6 +17,13 @@ const validationSchema = yup.object({
 });
 
 const Form = () => {
+  const queryClient = useQueryClient();
+  const addMutation = useMutation(createUser, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("users");
+    },
+  });
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -28,10 +37,11 @@ const Form = () => {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      console.log(values);
+      addMutation.mutate(values);
       formik.resetForm();
-      formik.setSubmitting(false);
-      toast.success("Employee has been submitted successfully")
+      if (addMutation.isSuccess) {
+        toast.success("Employee has been submitted successfully");
+      }
     },
   });
 
@@ -158,9 +168,7 @@ const Form = () => {
         </div>
       </div>
 
-      <button
-        disabled={formik.isSubmitting}
-        className='flex disabled:bg-gray-100 justify-center text-md w-3/6 bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-gray-500 hover:text-green-500'>
+      <button type="submit" className='flex disabled:bg-gray-100 justify-center text-md w-3/6 bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-gray-500 hover:text-green-500'>
         Add
         <span>
           <BiPlus size={24} />
