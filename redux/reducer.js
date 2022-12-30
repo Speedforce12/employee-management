@@ -5,7 +5,7 @@ const initialState = {
     toggleForm: false,
     toggleUpdate: false,
     userId: null,
-    editUser: [],
+    modal: { isOpen: false },
   },
 };
 
@@ -25,13 +25,13 @@ export const ReducerSlice = createSlice({
       state.client.userId = action.payload;
     },
 
-    getEditUser: (state, action) => {
-      state.client.editUser = action.payload;
+    openConfirmModal: (state) => {
+      state.client.modal.isOpen = !state.client.modal.isOpen;
     },
   },
 });
 
-export const { toggleAction, toggleUpdateForm, getUserData, getEditUser } =
+export const { toggleAction, toggleUpdateForm, getUserData, getEditUser, openConfirmModal } =
   ReducerSlice.actions;
 
 export default ReducerSlice.reducer;

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import { BiEdit, BiTrash, BiTrashAlt } from "react-icons/bi";
-import { getUsers } from "../lib/helper";
+import { BiEdit,BiTrashAlt } from "react-icons/bi";
+import { getEmployees } from "../lib/helper";
 import { useQuery } from "react-query";
 import Spinner from "../components/Spinner";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ const Table = () => {
   // redux state
   const dispatch = useDispatch();
   // cache data
-  const { isLoading, isError, data, error } = useQuery("users", getUsers, {
+  const { isLoading, isError, data, error } = useQuery("employees", getEmployees, {
     select: (data) => data.sort((a, b) => b.id - a.id),
   });
 
@@ -27,6 +27,11 @@ const Table = () => {
   const handleUpdate = ({ obj }) => {
     const userId = obj._id;
     dispatch(toggleUpdateForm(userId));
+    dispatch(getUserData(userId));
+  };
+
+  const handleDelete = ({ obj }) => {
+    const userId = obj._id;
     dispatch(getUserData(userId));
   };
 
@@ -99,7 +104,11 @@ const Table = () => {
                 />
               </button>
               <button type='button'>
-                <BiTrashAlt size={25} color={"rgb(244,63,94)"} />
+                <BiTrashAlt
+                  onClick={() => handleDelete({ obj })}
+                  size={25}
+                  color={"rgb(244,63,94)"}
+                />
               </button>
             </td>
           </tr>

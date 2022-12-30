@@ -7,3 +7,14 @@
 *>*{
     font-family: 'Poppins', sans-serif;
 }
+
+@layer components { 
+.nav-link {
+    @apply bg-left-bottom bg-gradient-to-r from-blue-500 to-indigo-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out;
+}
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}

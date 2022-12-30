@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BiBrush } from "react-icons/bi";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getUser, updateUser } from "../lib/helper";
+import { getEmployee, updateEmployee } from "../lib/helper";
 import Spinner from "./Spinner";
 import * as yup from "yup";
 import { useSelector } from "react-redux";
@@ -21,18 +21,18 @@ const schema = yup.object({
 });
 
 export default function userDetail() {
-  
+
   // redux state handler for userId
   const userId = useSelector((state) => state.app.client.userId);
 
   // react query to fetch the user to be updated
-  const { data } = useQuery(["users", userId], () => getUser(userId));
+  const { data } = useQuery(["employees", userId], () => getEmployee(userId));
 
   // react query mutation to pass updated user data to backend api
   const queryClient = useQueryClient();
-  const updateMutation = useMutation((updated)=>updateUser(userId, updated), {
+  const updateMutation = useMutation((updated)=>updateEmployee(userId, updated), {
     onSuccess: () => {
-      queryClient.invalidateQueries("users");
+      queryClient.invalidateQueries("employees");
     },
   });
 
@@ -42,7 +42,6 @@ export default function userDetail() {
     if (updateMutation.isSuccess) {
       toast.success("Employee has been updated successfully");
     }
-    console.log(data);
   };
 
   // render update form once user data has been fetch successfully from backend
@@ -58,7 +57,6 @@ function UpdateForm({ user, onSubmit }) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     defaultValues: user,

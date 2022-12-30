@@ -1,13 +1,14 @@
 import { models, model, Schema } from "mongoose";
 
-const userSchema = new Schema({
-  name: String,
-  avatar: String,
-  email: String,
-  salary: Number,
-  date: String,
-  status: String,
-});
+const userSchema = new Schema(
+  {
+    username: String,
+    avatar: String,
+    email: String,
+    password: String,
+  },
+  { timestamps: true }
+);
 
 const Users = models.user || model("user", userSchema);
 

@@ -1,41 +1,41 @@
-import Users from "../model/user";
+import Employees from "../model/employee";
 
-// get all users
-export async function getUsers(req, res) {
+// get all employees
+export async function getEmployees(req, res) {
   try {
-    const users = await Users.find({});
-    if (!users) {
+    const employees = await Employees.find({});
+    if (!employees) {
       res.status(404).json({ error: "Data not found" });
     }
 
-    res.status(200).json(users);
+    res.status(200).json(employees);
   } catch (error) {
     res.status(404).json({ error: "Error fetching Data" });
   }
 }
 
 // create a new user
-export async function createUser(req, res) {
+export async function createEmployee(req, res) {
   try {
     if (!req.body) {
       res.status(404).json({ error: "No data provided" });
     }
-    const user = await Users.create(req.body);
-    res.status(201).json({ success: true, data: user });
+    const employee = await Employees.create(req.body);
+    res.status(201).json({ success: true, data: employee});
   } catch (error) {
     res.status(401).json({ error: "Error While creating user" });
   }
 }
 
 // update an existing user
-export async function updateUser(req, res) {
+export async function updateEmployee(req, res) {
   try {
     const { userId } = req.query;
     const data = req.body;
 
     if (data && userId) {
-      const user = await Users.findByIdAndUpdate(userId, data);
-      res.status(200).json(user);
+      const employee = await Employees.findByIdAndUpdate(userId, data);
+      res.status(200).json(employee);
     }
 
     res.status(404).json({ error: "No User selected for Updating" });
@@ -45,11 +45,11 @@ export async function updateUser(req, res) {
 }
 
 // delete an existing user
-export async function deleteUser(req, res) {
+export async function deleteEmployee(req, res) {
   try {
     const { userId } = req.query;
     if (userId) {
-      const user = await Users.findByIdAndDelete(userId);
+      const employee = await Employees.findByIdAndDelete(userId);
       return res.status(200).json({ success: "user deleted successfully" });
     }
 
@@ -59,12 +59,12 @@ export async function deleteUser(req, res) {
   }
 }
 
-export async function getUser(req, res) {
+export async function getEmployee(req, res) {
   try {
     const { userId } = req.query;
-    const user = await Users.findById(userId);
-    if (user) {
-      res.status(200).json(user);
+    const employee = await Employees.findById(userId);
+    if (employee) {
+      res.status(200).json(employee);
     }
   } catch (error) {
     res.status(404).json({ error: "Error fetching user data" });
