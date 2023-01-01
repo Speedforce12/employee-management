@@ -5,13 +5,15 @@ import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { getEmployees } from "../../lib/helper";
 import Spinner from "../../components/Spinner";
+import { toggleMainModal } from "../../redux/reducer";
+import AddTeacher from "../../components/AddTeacher";
 
 const employee = () => {
   // redux state
   const dispatch = useDispatch();
   // cache data
   const { isLoading, isError, data, error } = useQuery("employees", getEmployees, {
-    select: (data) => data.sort((a, b) => b.id - a.id),
+    select: (data) => data.sort((a, b) => b._id - a._id),
   });
 
   if (isLoading)
@@ -40,7 +42,7 @@ const employee = () => {
 
           <div className='flex gap-3'>
             <button
-              // disabled={showUpdate ? true : false}
+              onClick={()=> dispatch(toggleMainModal({show:true, content:<AddTeacher/>, title:"Add New Teacher"}))}
               className='flex disabled:bg-gray-100 disabled:text-indigo-200 disabled:cursor-not-allowed text-white bg-indigo-500 px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800'>
               Add Employee
               <span className='px-1'>
@@ -52,7 +54,7 @@ const employee = () => {
 
         {/* main area for employee card */}
 
-        <section className='grid  md:grid-cols-2 lg:grid-cols-4 grid-cols-1 mt-6 gap-5'>
+        <section className='grid  sm:grid-cols-2  lg:grid-cols-4 grid-cols-1 mt-6 gap-5'>
           {data?.map((emp, i) => (
             <EmployeeCard  emp={emp}  key={i}/>
           ))}

@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Layout from "../components/Layout";
 import { SessionProvider } from "next-auth/react";
 import ConfirmModal from "../components/ConfirmModal";
+import GlobalModal from "../components/GlobalModal";
 
 
 
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <ToastContainer limit={1} position='top-center' />
         <Provider store={store}>
+          <GlobalModal />
           <ConfirmModal />
           <Layout>
             <Component {...pageProps} />

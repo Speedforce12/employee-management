@@ -25,14 +25,14 @@ const Table = () => {
     return <div className='font-bold text-red-500'>Error {error}</div>;
 
   const handleUpdate = ({ obj }) => {
-    const userId = obj._id;
-    dispatch(toggleUpdateForm(userId));
-    dispatch(getUserData(userId));
+    const employeeId = obj._id;
+    dispatch(toggleUpdateForm(employeeId));
+    dispatch(getUserData(employeeId));
   };
 
   const handleDelete = ({ obj }) => {
-    const userId = obj._id;
-    dispatch(getUserData(userId));
+    const employeeId = obj._id;
+    dispatch(getUserData(employeeId));
   };
 
   return (

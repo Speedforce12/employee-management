@@ -4,13 +4,12 @@ import Link from "next/link";
 import React from "react";
 
 const UserIcon = ({ user }) => {
-  console.log(user)
   return (
     <>
       <Popover className='flex justify-end relative'>
         <Popover.Button className='rounded-full cursor-pointer hover:bg-gray-100'>
           <img
-            src={user.image || '/images/avatar.jpg'}
+            src={user.image ? user.image : '/images/avatar.jpg'}
             atl=''
             className='h-12 w-12 rounded-full shadow-lg border-gray-50 cursor-pointer'
           />

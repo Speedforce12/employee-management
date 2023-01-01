@@ -30,11 +30,11 @@ export async function createEmployee(req, res) {
 // update an existing user
 export async function updateEmployee(req, res) {
   try {
-    const { userId } = req.query;
+    const { employeeId } = req.query;
     const data = req.body;
 
-    if (data && userId) {
-      const employee = await Employees.findByIdAndUpdate(userId, data);
+    if (data && employeeId) {
+      const employee = await Employees.findByIdAndUpdate(employeeId, data);
       res.status(200).json(employee);
     }
 
@@ -47,9 +47,9 @@ export async function updateEmployee(req, res) {
 // delete an existing user
 export async function deleteEmployee(req, res) {
   try {
-    const { userId } = req.query;
-    if (userId) {
-      const employee = await Employees.findByIdAndDelete(userId);
+    const { employeeId } = req.query;
+    if (employeeId) {
+      const employee = await Employees.findByIdAndDelete(employeeId);
       return res.status(200).json({ success: "user deleted successfully" });
     }
 
@@ -61,8 +61,8 @@ export async function deleteEmployee(req, res) {
 
 export async function getEmployee(req, res) {
   try {
-    const { userId } = req.query;
-    const employee = await Employees.findById(userId);
+    const { employeeId } = req.query;
+    const employee = await Employees.findById(employeeId);
     if (employee) {
       res.status(200).json(employee);
     }

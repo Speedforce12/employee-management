@@ -1,5 +1,5 @@
 import connectMongo from "../../../database/conn";
-import { createEmployee, getEmployees } from "../../../database/controller";
+import { createEmployee, deleteEmployee, getEmployees } from "../../../database/controller";
 
 export default function handler(req, res) {
   connectMongo().catch(() =>

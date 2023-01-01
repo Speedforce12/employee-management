@@ -5,7 +5,7 @@ const PreviewImage = ({ image }) => {
   return (
     <div className='mr-5'>
       <Image
-        src={image ? image : '/images/avatar.jpg'}
+        src={image ? image : "/images/avatar.jpg"}
         alt=''
         width={132}
         height={132}

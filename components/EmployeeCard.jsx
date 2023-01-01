@@ -4,18 +4,33 @@ import { HiOutlineMail, HiOutlinePhone } from "react-icons/hi";
 import { Popover } from "@headlessui/react";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import {getUserData, openConfirmModal} from "../redux/reducer"
+import {
+  getUserData,
+  openConfirmModal,
+  toggleMainModal,
+} from "../redux/reducer";
+import UpdateTeacher from "./UpdateTeacher";
 
 export default function EmployeeCard({ emp }) {
-    const dispatch = useDispatch();
-
+  const dispatch = useDispatch();
 
   const handleDelete = ({ emp }) => {
-    const userId = emp._id;
+    const employeeId = emp._id;
     dispatch(openConfirmModal());
-    dispatch(getUserData(userId));
+    dispatch(getUserData(employeeId));
   };
 
+  const handleUpdate = ({ emp }) => {
+    const employeeId = emp._id;
+    dispatch(getUserData(employeeId));
+    dispatch(
+      toggleMainModal({
+        show: true,
+        content: <UpdateTeacher />,
+        title: "Update Teacher",
+      })
+    );
+  };
 
   return (
     <div className='max-w-[350px] bg-white p-3 rounded-lg shadow-lg'>
@@ -40,14 +55,15 @@ export default function EmployeeCard({ emp }) {
                 className='text-indigo-500  px-3 cursor-pointer py-2 font-semibold hover:bg-gray-200 rounded-md'>
                 More Info
               </Link>
-              <button
-                onClick={()=>handleDelete({emp})}
-                href='/engagement'
+              <Link
+                onClick={() => handleDelete({ emp })}
+                href='#'
                 className='text-indigo-500 px-3 cursor-pointer py-2 font-semibold hover:bg-gray-200 rounded-md'>
                 Delete
-              </button>
+              </Link>
               <Link
-                href='/security'
+                href='#'
+                onClick={() => handleUpdate({ emp })}
                 className='text-indigo-500  px-3 cursor-pointer py-2 font-semibold hover:bg-gray-200 rounded-md'>
                 Edit
               </Link>
@@ -58,13 +74,10 @@ export default function EmployeeCard({ emp }) {
 
       <div className='relative flex flex-col justify-center items-center'>
         <Image
-          src={`${
-            emp?.avatar
-              ? emp?.avatar
-              : "/images/avatar.jpg"
-          } `}
+          src={`${emp?.avatar ? emp?.avatar : "/images/avatar.jpg"} `}
           width={100}
           height={300}
+          alt='avatar'
           className='object-contain rounded-full'
         />
         <span className='text-lg font-semibold my-1'>{emp?.name}</span>

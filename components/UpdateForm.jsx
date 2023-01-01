@@ -8,7 +8,6 @@ import * as yup from "yup";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-
 // validation for input fields
 const schema = yup.object({
   name: yup.string().required(),
@@ -21,22 +20,28 @@ const schema = yup.object({
 });
 
 export default function userDetail() {
-
-  // redux state handler for userId
-  const userId = useSelector((state) => state.app.client.userId);
+  // redux state handler for employeeId
+  const employeeId = useSelector((state) => state.app.client.employeeId);
 
   // react query to fetch the user to be updated
-  const { data } = useQuery(["employees", userId], () => getEmployee(userId));
+  // const { data } = useQuery(["employees", employeeId], () => getEmployee(employeeId));
+
+   const response = employeeApi.get(`http://localhost:3000/api/employees/${employeeId}`);
+
+    const data = response.data;
 
   // react query mutation to pass updated user data to backend api
   const queryClient = useQueryClient();
-  const updateMutation = useMutation((updated)=>updateEmployee(userId, updated), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("employees");
-    },
-  });
+  const updateMutation = useMutation(
+    (updated) => updateEmployee(employeeId, updated),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("employees");
+      },
+    }
+  );
 
-  // get input data from form to pass to mutation function 
+  // get input data from form to pass to mutation function
   const onSubmit = (data) => {
     updateMutation.mutate(data);
     if (updateMutation.isSuccess) {

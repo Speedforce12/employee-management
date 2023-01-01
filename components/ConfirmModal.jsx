@@ -2,14 +2,15 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser } from "../lib/helper";
+import { deleteEmployee} from "../lib/helper";
 import { getUserData, openConfirmModal } from "../redux/reducer";
 
 export default function ConfirmModal() {
   const isOpen = useSelector((state) => state.app.client.modal.isOpen);
   const dispatch = useDispatch();
-  // redux state handler for userId
-  const userId = useSelector((state) => state.app.client.userId);
+
+  // redux state handler for employeeId
+  const employeeId = useSelector((state) => state.app.client.employeeId);
   const queryClient = useQueryClient();
 
   const CloseModal = () => {
@@ -17,9 +18,9 @@ export default function ConfirmModal() {
   };
 
   const deletehandler = async () => {
-    if (userId) {
-      await deleteUser(userId);
-      await queryClient.invalidateQueries("users");
+    if (employeeId) {
+      await deleteEmployee(employeeId);
+      await queryClient.invalidateQueries("employees");
       dispatch(openConfirmModal());
       dispatch(getUserData(null));
     }
@@ -28,7 +29,7 @@ export default function ConfirmModal() {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as='div' className='relative z-10' onClose={CloseModal}>
+        <Dialog as='div' className='relative z-40' onClose={CloseModal}>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
